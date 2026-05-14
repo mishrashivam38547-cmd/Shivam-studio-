@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIVAM-STUDIO | Secure Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #05070a; color: white; font-family: sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body class="p-5">
+
+    <!-- Header Section -->
+    <header class="flex justify-between items-center mb-10">
+        <h1 class="text-2xl font-bold tracking-tight">SHIVAM-STUDIO</h1>
+        <button onclick="toggleAdmin()" class="text-xs text-gray-500">Admin Login</button>
+    </header>
+
+    <!-- Public Section: Watching & Downloads -->
+    <main class="max-w-4xl mx-auto">
+        <section id="public-content" class="space-y-8">
+            <h2 class="text-xl font-semibold text-blue-400">Available Files</h2>
+            
+            <!-- Video Player Example -->
+            <div class="glass-card p-4 rounded-2xl">
+                <h3 class="mb-3 text-gray-300">Latest Project Video</h3>
+                <video controls class="w-full rounded-lg shadow-2xl">
+                    <source src="your-video-link.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- APK Download List -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="glass-card p-6 rounded-2xl flex justify-between items-center">
+                    <div>
+                        <p class="font-medium">Pro-Tool-V1.apk</p>
+                        <p class="text-xs text-gray-400">Size: 15MB</p>
+                    </div>
+                    <a href="your-apk-link.apk" download class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-full text-sm transition">Download</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Only: Upload Section (Hidden by Default) -->
+        <section id="admin-section" class="hidden mt-12 pt-8 border-t border-gray-800">
+            <h2 class="text-xl font-semibold text-green-400 mb-6">Admin Control Panel</h2>
+            <div class="glass-card p-8 rounded-2xl border-green-900/30">
+                <p class="mb-4 text-sm text-gray-400">Upload new Video or APK:</p>
+                <input type="file" id="fileInput" class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-600 file:text-white hover:file:bg-green-700 cursor-pointer">
+                <button onclick="uploadFile()" class="mt-4 w-full bg-white text-black font-bold py-2 rounded-xl hover:bg-gray-200">Upload to Server</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Simple authentication logic
+        function toggleAdmin() {
+            const password = prompt("Enter Admin Password:");
+            
+            // Yahan apna secret password rakhein
+            if (password === "Shivam@77") { 
+                document.getElementById('admin-section').classList.remove('hidden');
+                alert("Welcome, Shivam. Admin mode active.");
+            } else {
+                alert("Access Denied!");
+            }
+        }
+
+        function uploadFile() {
+            const file = document.getElementById('fileInput').files[0];
+            if (file) {
+                alert("Starting upload for: " + file.name + "\n(Connect this to your Backend or Cloudinary API)");
+                // Yahan aap apna Firebase ya Cloudinary ka upload code dalenge
+            } else {
+                alert("Please select a file first.");
+            }
+        }
+    </script>
+</body>
+</html>
