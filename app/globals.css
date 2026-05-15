@@ -34,21 +34,25 @@ body {
 }
 
 /* Download Link ko Button banane ke liye */
-/* Isse link ek button jaisa dikhega */
+/* Link ko ek asli button banane ke liye */
 a[href*="http"] {
-    display: inline-block;
-    background-color: #0070f3; /* Blue color */
+    display: inline-block !important;
+    background: linear-gradient(135deg, #0070f3, #00a1ff) !important;
     color: white !important;
-    padding: 12px 24px;
-    border-radius: 30px; /* Round button */
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 15px;
-    word-break: break-all; /* Agar link bahut lamba ho toh use chhota dikhane ke liye */
-    max-width: 200px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; /* Link ko '...' mein badal dega */
+    padding: 12px 25px !important;
+    border-radius: 50px !important; /* Button ko round karne ke liye */
+    text-decoration: none !important;
+    font-weight: bold !important;
+    margin-top: 10px !important;
+    min-width: 150px;
+    box-shadow: 0 4px 15px rgba(0, 112, 243, 0.3);
+    font-size: 0; /* Isse lamba URL gayab ho jayega */
+}
+
+/* Button ke andar "Download Now" likhne ke liye */
+a[href*="http"]::before {
+    content: "DOWNLOAD NOW 📥";
+    font-size: 14px; /* Text ka size wapas lane ke liye */
 }
 
 }
