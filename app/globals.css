@@ -3,86 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --background: #050a18;
-  --foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  margin: 0;
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 140px; 
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Header Title (Top-Left) */
-.site-title {
-  position: absolute !important;
-  top: 20px !important;
-  left: 20px !important;
-  font-size: 24px !important;
-  font-weight: bold;
-  color: white;
-}
-
-/* Professional Card Setup */
-.apk-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #333;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 30px;
-  width: 90%;
-  max-width: 380px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-/* 1. Logo Format */
-.apk-logo {
-  width: 100px !important;
-  height: 100px !important;
-  border-radius: 18px;
-  object-fit: cover;
-  margin-bottom: 15px;
-  border: 2px solid #444;
-}
-
-/* 2. Details Format */
-.apk-name {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #fff;
-}
-
-.apk-desc {
-  font-size: 14px;
-  color: #aaa;
-  margin-bottom: 20px;
-}
-
-/* 3. Button Format */
-.download-btn {
-  display: block;
-  width: 100%;
-  background: linear-gradient(135deg, #0070f3, #00a1ff);
-  color: white !important;
-  padding: 12px 0;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
-  transition: 0.3s;
-}
-
-.download-btn:hover {
-  transform: scale(1.02);
-  box-shadow: 0 5px 15px rgba(0, 112, 243, 0.4);
-}
+/* Agar aapne pehle kuch extra classes likhi thi 
+   toh wo niche add kar sakte hain */
