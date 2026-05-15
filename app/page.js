@@ -2,8 +2,8 @@
 import { useState, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import Link from "next/link";
 
-// Aapki Firebase Configuration
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -13,7 +13,6 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-// Firebase Initialize
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -21,7 +20,6 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // "posts" collection se data nikalna
     const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setPosts(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
@@ -30,27 +28,35 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen p-4 flex flex-col items-center">
-      <h1 className="site-title">SHIVAM STUDIO</h1>
+    <main style={{ backgroundColor: '#050a18', minHeight: '100vh', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px', paddingTop: '100px' }}>
       
-      <div className="w-full max-w-md mt-10">
+      {/* Header aur Upload Button */}
+      <div style={{ position: 'absolute', top: '20px', left: '20px', textAlign: 'left' }}>
+        <h1 style={{ fontSize: '24px', margin: '0' }}>SHIVAM STUDIO</h1>
+        <Link href="/admin"> 
+          <button style={{ marginTop: '10px', padding: '8px 15px', backgroundColor: 'white', color: 'black', border: 'none', borderRadius: '5px', fontWeight: 'bold', cursor: 'pointer' }}>
+            STUDIO MANAGER
+          </button>
+        </Link>
+      </div>
+
+      {/* APK Cards Section */}
+      <div style={{ width: '100%', maxWidth: '400px', marginTop: '40px' }}>
         {posts.map((post) => (
-          <div key={post.id} className="apk-card">
-            {/* 1. Logo Format */}
+          <div key={post.id} style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid #333', borderRadius: '20px', padding: '20px', marginBottom: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+            
+            {/* 1. Logo */}
             <img 
               src={post.imageUrl || "https://via.placeholder.com/150"} 
-              alt={post.title} 
-              className="apk-logo" 
+              style={{ width: '100px', height: '100px', borderRadius: '15px', marginBottom: '15px', objectFit: 'cover' }} 
             />
 
-            {/* 2. Name & Details Format */}
-            <div className="text-center">
-              <h2 className="apk-name">{post.title}</h2>
-              <p className="apk-desc">{post.description}</p>
-            </div>
+            {/* 2. Details */}
+            <h2 style={{ fontSize: '20px', margin: '5px 0' }}>{post.title}</h2>
+            <p style={{ fontSize: '14px', color: '#aaa', marginBottom: '15px' }}>{post.description}</p>
 
-            {/* 3. Button Format */}
-            <a href={post.downloadUrl} className="download-btn">
+            {/* 3. Download Button */}
+            <a href={post.downloadUrl} style={{ width: '100%', backgroundColor: '#0070f3', color: 'white', padding: '12px 0', borderRadius: '10px', textDecoration: 'none', fontWeight: 'bold' }}>
               DOWNLOAD NOW 📥
             </a>
           </div>
@@ -58,4 +64,4 @@ export default function Home() {
       </div>
     </main>
   );
-                }
+}
