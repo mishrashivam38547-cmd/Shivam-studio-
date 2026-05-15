@@ -12,92 +12,62 @@ body {
   background: var(--background);
   margin: 0;
   font-family: sans-serif;
-}
-/* /* Sab kuch center karne ke liye body mein ye add karein */
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 70px;
 }
 
-/* APK aur Text ko professional box mein dikhane ke liye */
-.apk-section, .download-area {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #333;
-    border-radius: 15px;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 90%;
-    width: 400px;
-}
-
-/* Download Link ko Button banane ke liye */
-/* Link ko ek asli button banane ke liye */
-/* Purana HTTP link hatakar Button banane ke liye */
-a[href*="http"] {
-    display: inline-block !important;
-    background: linear-gradient(135deg, #0070f3, #00a1ff) !important;
-    color: white !important;
-    padding: 12px 30px !important;
-    border-radius: 50px !important;
-    text-decoration: none !important;
-    font-weight: bold !important;
-    margin-top: 15px !important;
-    box-shadow: 0 4px 15px rgba(0, 112, 243, 0.4) !important;
-    font-size: 0 !important; /* Isse lamba URL gayab ho jayega */
-    transition: 0.3s;
-}
-
-/* Button ke andar likhne ke liye */
-a[href*="http"]::before {
-    content: "DOWNLOAD NOW 📥";
-    font-size: 14px !important; /* Text wapas lane ke liye */
-    letter-spacing: 1px;
-}
-
-a[href*="http"]:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 112, 243, 0.6) !important;
-}
-
-}
-Sab kuch center mein laane ke liye */
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin: 0;
-    padding-top: 60px; /* Taaki button ke liye jagah rahe */
-}
-
-/* Studio Manager Button ko top-left mein set karne ke liye */
+/* Open Studio Manager Button (Top Left) */
 button {
-    /* Agar ye wahi button hai jo 'Open Studio Manager' likha hai */
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    padding: 8px 15px;
-    background-color: #ffffff;
-    color: #000;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 10px 18px;
+  background-color: #ffffff;
+  color: #000;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 100;
+  border: none;
 }
 
-/* Gallery images ko sahi se beech mein dikhane ke liye */
-.photo-gallery, .gallery-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    width: 100%;
+/* Download Section Card */
+.apk-section, .download-area {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #333;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 400px;
+}
+
+/* Professional Download Button */
+a[href*="http"] {
+  display: inline-block !important;
+  background: linear-gradient(135deg, #0070f3, #00a1ff) !important;
+  color: white !important;
+  padding: 12px 30px !important;
+  border-radius: 50px !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  margin-top: 15px !important;
+  font-size: 0 !important; /* URL chupane ke liye */
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 112, 243, 0.4);
+}
+
+a[href*="http"]::before {
+  content: "DOWNLOAD NOW 📥";
+  font-size: 14px !important;
 }
 
 img {
-    max-width: 90%;
-    height: auto;
-    display: block;
-    margin: 10px auto;
+  max-width: 90%;
+  height: auto;
+  border-radius: 12px;
+  margin: 15px auto;
 }
