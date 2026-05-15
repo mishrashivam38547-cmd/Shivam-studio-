@@ -14,51 +14,47 @@ body {
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Saara content center mein rahega */
+  align-items: center;
   text-align: center;
-  padding-top: 120px; /* Naam aur button ke liye upar jagah */
+  padding-top: 140px; /* Isse content naam/button se niche rahega */
 }
 
-/* "SHIVAM STUDIO" Title ko top-left mein lane ke liye */
+/* Header Title top-left mein */
 h1 {
   position: absolute !important;
-  top: 15px !important;
-  left: 15px !important;
-  font-size: 22px !important;
+  top: 20px !important;
+  left: 20px !important;
+  font-size: 24px !important;
   margin: 0 !important;
   color: white !important;
-  text-align: left !important;
-  font-weight: bold;
 }
 
-/* Studio Manager Button ko naam ke niche set karne ke liye */
+/* Studio Button Title ke niche */
 button {
   position: absolute !important;
-  top: 60px !important; /* Title ke theek niche */
-  left: 15px !important;
+  top: 65px !important;
+  left: 20px !important;
   padding: 8px 15px;
   background-color: #ffffff;
   color: #000;
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
-  z-index: 100;
   border: none;
-  font-size: 12px;
 }
 
-/* Download Section Card */
-.apk-section, .download-area {
+/* Cards layout */
+.apk-section, .download-area, .photo-gallery {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid #333;
   border-radius: 15px;
   padding: 20px;
-  margin: 20px auto;
+  margin: 15px auto;
   width: 90%;
   max-width: 400px;
 }
 
-/* Professional Download Button */
+/* Professional Buttons */
 a[href*="http"] {
   display: inline-block !important;
   background: linear-gradient(135deg, #0070f3, #00a1ff) !important;
@@ -68,24 +64,19 @@ a[href*="http"] {
   text-decoration: none !important;
   font-weight: bold !important;
   margin-top: 15px !important;
-  font-size: 0 !important; /* Lamba URL chupane ke liye */
-  transition: 0.3s;
+  font-size: 0 !important; 
   box-shadow: 0 4px 15px rgba(0, 112, 243, 0.4);
 }
 
-/* Button ke andar text dikhane ke liye */
 a[href*="http"]::before {
   content: "DOWNLOAD NOW 📥";
   font-size: 14px !important;
 }
 
-a[href*="http"]:hover {
-  transform: scale(1.05);
-}
-
 img {
-  max-width: 90%;
+  max-width: 100%;
   height: auto;
   border-radius: 12px;
-  margin: 15px auto;
+  margin: 10px auto;
+  display: block;
 }
