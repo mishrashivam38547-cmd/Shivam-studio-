@@ -1,49 +1,56 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { initializeApp, getApps } from "firebase/app";
-import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getFirestore, collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
+// NEW FIREBASE CONFIG (shivam-anime)
 const firebaseConfig = {
-  apiKey: "AIzaSyCulND3XoR7XhJIdZe6SRI8_-D3Ikj7w0w",
-  authDomain: "studio-shivam.firebaseapp.com",
-  projectId: "studio-shivam",
-  storageBucket: "studio-shivam.firebasestorage.app",
-  messagingSenderId: "9621435697",
-  appId: "1:9621435697:web:e690304ef64667f0b7ac10"
+  apiKey: "AIzaSyBfS3MOG86wZuukQj-3TjX60b-F806kvQ0",
+  authDomain: "shivam-anime.firebaseapp.com",
+  projectId: "shivam-anime",
+  storageBucket: "shivam-anime.firebasestorage.app",
+  messagingSenderId: "858703658309",
+  appId: "1:858703658309:web:1185863a9a77129dc5122d",
+  measurementId: "G-MHY46LNG07"
 };
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getFirestore(app);
 
-export default function Admin() {
-  const [formData, setFormData] = useState({ title: '', imageUrl: '', videoUrl: '', downloadUrl: '', version: '', size: '' });
+export default function Home() {
+  const [posts, setPosts] = useState([]);
 
-  const handleUpload = async (e) => {
-    e.preventDefault();
-    try {
-      await addDoc(collection(db, "posts"), { ...formData, createdAt: serverTimestamp() });
-      alert("APK Uploaded Successfully!");
-      setFormData({ title: '', imageUrl: '', videoUrl: '', downloadUrl: '', version: '', size: '' });
-    } catch (err) { alert("Error: " + err.message); }
-  };
+  useEffect(() => {
+    const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setPosts(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
-    <div style={{ backgroundColor: '#0a0b14', minHeight: '100vh', color: 'white', padding: '20px', fontFamily: 'sans-serif' }}>
-      <h1 style={{ textAlign: 'center' }}>Studio Manager</h1>
-      <form onSubmit={handleUpload} style={{ maxWidth: '400px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '15px' }}>
-        <input placeholder="App Name" style={inputStyle} value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} required />
-        <input placeholder="Photo URL (Link)" style={inputStyle} value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
-        <input placeholder="Video URL (Optional Link)" style={inputStyle} value={formData.videoUrl} onChange={e => setFormData({...formData, videoUrl: e.target.value})} />
-        <input placeholder="APK Download Link" style={inputStyle} value={formData.downloadUrl} onChange={e => setFormData({...formData, downloadUrl: e.target.value})} required />
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <input placeholder="Version (e.g. v2.0)" style={inputStyle} value={formData.version} onChange={e => setFormData({...formData, version: e.target.value})} />
-          <input placeholder="Size (e.g. 45MB)" style={inputStyle} value={formData.size} onChange={e => setFormData({...formData, size: e.target.value})} />
-        </div>
-        <button type="submit" style={{ padding: '15px', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer' }}>UPLOAD APK</button>
-      </form>
-      <center><a href="/" style={{ color: '#94a3b8', marginTop: '20px', display: 'block' }}>Back to Website</a></center>
+    <div style={{ backgroundColor: '#0a0b14', minHeight: '100vh', color: 'white', fontFamily: 'sans-serif' }}>
+      <nav style={{ padding: '20px', textAlign: 'center', background: '#0f101a', borderBottom: '1px solid #1e1e2e', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1 style={{ fontSize: '24px', margin: 0, fontWeight: '900' }}>SHIVAM<span style={{ color: '#3b82f6' }}>STUDIO</span></h1>
+        <a href="/admin"><button style={{ background: 'white', color: 'black', border: 'none', padding: '5px 12px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>MANAGER</button></a>
+      </nav>
+
+      <main style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', padding: '15px', maxWidth: '1000px', margin: '0 auto' }}>
+        {posts.map((post) => (
+          <div key={post.id} style={{ backgroundColor: '#161726', borderRadius: '25px', padding: '15px 10px', textAlign: 'center', border: '1px solid #232438', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            {post.videoUrl ? (
+              <video src={post.videoUrl} style={{ width: '100%', height: '100px', borderRadius: '15px', objectFit: 'cover' }} controls muted />
+            ) : (
+              <img src={post.imageUrl || "https://via.placeholder.com/150"} style={{ width: '80px', height: '80px', borderRadius: '18px', marginBottom: '10px', objectFit: 'cover' }} />
+            )}
+            <h2 style={{ fontSize: '15px', margin: '8px 0', fontWeight: 'bold', height: '36px', overflow: 'hidden' }}>{post.title}</h2>
+            <p style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '12px' }}>{post.version || "v1.0"} • {post.size || "MB"}</p>
+            <a href={post.downloadUrl} style={{ background: 'linear-gradient(45deg, #833ab4, #fd1d1d)', width: '45px', height: '45px', borderRadius: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center', textDecoration: 'none' }}>
+              <span style={{ fontSize: '20px' }}>📥</span>
+            </a>
+          </div>
+        ))}
+      </main>
     </div>
   );
 }
-
-const inputStyle = { padding: '12px', borderRadius: '8px', border: '1px solid #232438', backgroundColor: '#161726', color: 'white' };
