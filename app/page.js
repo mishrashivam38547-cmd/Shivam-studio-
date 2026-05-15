@@ -4,7 +4,6 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import Link from "next/link";
 
-// Firebase Config
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -29,23 +28,42 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
-      <h1>SHIVAM STUDIO</h1>
-      <Link href="/admin">
-        <button>STUDIO MANAGER</button>
-      </Link>
+    <div className="min-h-screen bg-[#050a18] text-white p-5">
+      <header className="mb-10">
+        <h1 className="text-3xl font-bold">SHIVAM STUDIO</h1>
+        <Link href="/admin">
+          <button className="mt-4 px-4 py-2 bg-white text-black rounded-lg font-bold">
+            STUDIO MANAGER
+          </button>
+        </Link>
+      </header>
 
-      <div>
+      <main className="grid grid-cols-1 gap-6">
         {posts.map((post) => (
-          <div key={post.id} className="post-card">
-            <h2>{post.title}</h2>
-            <p>{post.description}</p>
-            {post.imageUrl && <img src={post.imageUrl} alt={post.title} width="200" />}
-            <br />
-            <a href={post.downloadUrl || post.link}>Download APK</a>
+          <div key={post.id} className="border border-gray-700 p-4 rounded-xl bg-gray-900/50">
+            {/* 1. Logo/Photo */}
+            {post.imageUrl && (
+              <img 
+                src={post.imageUrl} 
+                alt={post.title} 
+                className="w-32 h-32 rounded-lg mb-4 object-cover" 
+              />
+            )}
+            
+            {/* 2. Details */}
+            <h2 className="text-xl font-bold">{post.title}</h2>
+            <p className="text-gray-400 mt-2">{post.description}</p>
+            
+            {/* 3. Button */}
+            <a 
+              href={post.downloadUrl || post.link} 
+              className="inline-block mt-4 px-6 py-2 bg-blue-600 rounded-full font-bold text-white"
+            >
+              Download APK
+            </a>
           </div>
         ))}
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
