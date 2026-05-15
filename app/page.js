@@ -2,8 +2,8 @@
 import { useState, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import Link from "next/link";
 
+// 1. Firebase Configuration (Aapki keys automatic .env se lega)
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -28,35 +28,92 @@ export default function Home() {
   }, []);
 
   return (
-    <main style={{ backgroundColor: '#050a18', minHeight: '100vh', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px', paddingTop: '100px' }}>
+    <main style={{ 
+      backgroundColor: '#050a18', 
+      minHeight: '100vh', 
+      color: 'white', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      padding: '20px', 
+      paddingTop: '120px',
+      fontFamily: 'sans-serif' 
+    }}>
       
-      {/* Header aur Upload Button */}
-      <div style={{ position: 'absolute', top: '20px', left: '20px', textAlign: 'left' }}>
-        <h1 style={{ fontSize: '24px', margin: '0' }}>SHIVAM STUDIO</h1>
-        <Link href="/admin"> 
-          <button style={{ marginTop: '10px', padding: '8px 15px', backgroundColor: 'white', color: 'black', border: 'none', borderRadius: '5px', fontWeight: 'bold', cursor: 'pointer' }}>
+      {/* HEADER: Title aur Studio Manager Button */}
+      <div style={{ 
+        position: 'absolute', 
+        top: '20px', 
+        left: '20px', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: '10px' 
+      }}>
+        <h1 style={{ fontSize: '26px', margin: '0', fontWeight: 'bold' }}>SHIVAM STUDIO</h1>
+        <a href="/admin" style={{ textDecoration: 'none' }}>
+          <button style={{ 
+            padding: '10px 20px', 
+            backgroundColor: 'white', 
+            color: 'black', 
+            border: 'none', 
+            borderRadius: '8px', 
+            fontWeight: 'bold', 
+            cursor: 'pointer',
+            fontSize: '14px'
+          }}>
             STUDIO MANAGER
           </button>
-        </Link>
+        </a>
       </div>
 
-      {/* APK Cards Section */}
-      <div style={{ width: '100%', maxWidth: '400px', marginTop: '40px' }}>
+      {/* APK LIST: Cards Section */}
+      <div style={{ width: '100%', maxWidth: '400px' }}>
         {posts.map((post) => (
-          <div key={post.id} style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid #333', borderRadius: '20px', padding: '20px', marginBottom: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+          <div key={post.id} style={{ 
+            backgroundColor: 'rgba(255,255,255,0.05)', 
+            border: '1px solid #333', 
+            borderRadius: '25px', 
+            padding: '25px', 
+            marginBottom: '25px', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            textAlign: 'center',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+          }}>
             
-            {/* 1. Logo */}
+            {/* 1. PHOTO/LOGO */}
             <img 
               src={post.imageUrl || "https://via.placeholder.com/150"} 
-              style={{ width: '100px', height: '100px', borderRadius: '15px', marginBottom: '15px', objectFit: 'cover' }} 
+              alt="Logo"
+              style={{ 
+                width: '120px', 
+                height: '120px', 
+                borderRadius: '20px', 
+                marginBottom: '15px', 
+                objectFit: 'cover',
+                border: '2px solid #444'
+              }} 
             />
 
-            {/* 2. Details */}
-            <h2 style={{ fontSize: '20px', margin: '5px 0' }}>{post.title}</h2>
-            <p style={{ fontSize: '14px', color: '#aaa', marginBottom: '15px' }}>{post.description}</p>
+            {/* 2. NAME & DESCRIPTION */}
+            <h2 style={{ fontSize: '22px', margin: '5px 0', color: '#fff' }}>{post.title}</h2>
+            <p style={{ fontSize: '14px', color: '#aaa', marginBottom: '20px', lineHeight: '1.4' }}>
+              {post.description}
+            </p>
 
-            {/* 3. Download Button */}
-            <a href={post.downloadUrl} style={{ width: '100%', backgroundColor: '#0070f3', color: 'white', padding: '12px 0', borderRadius: '10px', textDecoration: 'none', fontWeight: 'bold' }}>
+            {/* 3. DOWNLOAD BUTTON */}
+            <a href={post.downloadUrl || post.link} style={{ 
+              width: '100%', 
+              background: 'linear-gradient(135deg, #0070f3, #00a1ff)', 
+              color: 'white', 
+              padding: '14px 0', 
+              borderRadius: '12px', 
+              textDecoration: 'none', 
+              fontWeight: 'bold',
+              fontSize: '16px',
+              display: 'block'
+            }}>
               DOWNLOAD NOW 📥
             </a>
           </div>
@@ -64,4 +121,4 @@ export default function Home() {
       </div>
     </main>
   );
-}
+                   }
