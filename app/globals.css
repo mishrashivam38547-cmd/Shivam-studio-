@@ -34,17 +34,23 @@ body {
 }
 
 /* Download Link ko Button banane ke liye */
-a[href*="download"], a[href*="http"] {
+/* Isse link ek button jaisa dikhega */
+a[href*="http"] {
     display: inline-block;
-    background: #0070f3;
+    background-color: #0070f3; /* Blue color */
     color: white !important;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 12px 24px;
+    border-radius: 30px; /* Round button */
     text-decoration: none;
     font-weight: bold;
-    margin-top: 10px;
-    text-transform: uppercase;
-    font-size: 14px;
+    margin-top: 15px;
+    word-break: break-all; /* Agar link bahut lamba ho toh use chhota dikhane ke liye */
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Link ko '...' mein badal dega */
+}
+
 }
 Sab kuch center mein laane ke liye */
 body {
