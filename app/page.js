@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { initializeApp, getApps } from "firebase/app";
-import { getFirestore, collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { getFirestore, collection, query, orderBy, onSnapshot } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBfS3MOG86wZuukQj-3TjX60b-F806kvQ0",
@@ -29,23 +29,66 @@ export default function Home() {
 
   return (
     <div style={{ backgroundColor: '#0a0b14', minHeight: '100vh', color: 'white', fontFamily: 'sans-serif' }}>
-      <nav style={{ padding: '20px', textAlign: 'center', background: '#0f101a', borderBottom: '1px solid #1e1e2e', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1 style={{ fontSize: '24px', margin: 0, fontWeight: '900' }}>SHIVAM<span style={{ color: '#3b82f6' }}>STUDIO</span></h1>
-        <a href="/admin"><button style={{ background: 'white', color: 'black', border: 'none', padding: '5px 12px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>MANAGER</button></a>
-      </nav>
+      
+      {/* Header */}
+      <header style={{ padding: '20px', textAlign: 'center', borderBottom: '1px solid #161726' }}>
+        <h1 style={{ margin: 0, fontSize: '1.5rem', color: '#3b82f6' }}>SHIVAM STUDIO</h1>
+        <p style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Premium APK & Anime Store</p>
+      </header>
 
-      <main style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', padding: '15px', maxWidth: '1000px', margin: '0 auto' }}>
+      {/* Apps Grid - मोबाइल पर 2 और PC पर ज्यादा ऐप्स दिखेंगे */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', 
+        gap: '15px', 
+        padding: '20px' 
+      }}>
         {posts.map((post) => (
-          <div key={post.id} style={{ backgroundColor: '#161726', borderRadius: '25px', padding: '15px 10px', textAlign: 'center', border: '1px solid #232438' }}>
-            <img src={post.imageUrl || "https://via.placeholder.com/150"} style={{ width: '80px', height: '80px', borderRadius: '18px', marginBottom: '10px', objectFit: 'cover' }} />
-            <h2 style={{ fontSize: '15px', margin: '8px 0', fontWeight: 'bold' }}>{post.title}</h2>
-            <p style={{ fontSize: '11px', color: '#94a3b8' }}>{post.version || "v1.0"} • {post.size || "MB"}</p>
-            <a href={post.downloadUrl} style={{ background: 'linear-gradient(45deg, #833ab4, #fd1d1d)', width: '45px', height: '45px', borderRadius: '12px', display: 'inline-flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px', textDecoration: 'none' }}>
-              <span style={{ fontSize: '20px' }}>📥</span>
+          <div key={post.id} style={{ 
+            background: '#161726', 
+            borderRadius: '15px', 
+            padding: '12px', 
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            border: 'none' // यहाँ से सफ़ेद लाइन हट गई है
+          }}>
+            <img 
+              src={post.imageUrl || 'https://via.placeholder.com/150'} 
+              alt={post.title} 
+              style={{ width: '100%', borderRadius: '10px', marginBottom: '10px', aspectRatio: '1/1', objectFit: 'cover' }} 
+            />
+            <h3 style={{ fontSize: '0.9rem', marginBottom: '5px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {post.title}
+            </h3>
+            <p style={{ fontSize: '0.7rem', color: '#94a3b8', marginBottom: '10px' }}>
+              {post.version} • {post.size}
+            </p>
+            <a 
+              href={post.downloadUrl} 
+              target="_blank" 
+              style={{ 
+                background: '#3b82f6', 
+                color: 'white', 
+                textDecoration: 'none', 
+                padding: '8px', 
+                borderRadius: '8px', 
+                fontSize: '0.8rem', 
+                fontWeight: 'bold' 
+              }}
+            >
+              DOWNLOAD
             </a>
           </div>
         ))}
-      </main>
+      </div>
+
+      {/* Footer */}
+      <footer style={{ textAlign: 'center', padding: '20px', fontSize: '0.7rem', color: '#475569' }}>
+        © 2026 Shivam Studio. All rights reserved.
+      </footer>
     </div>
   );
-  }
+              }
+                  
