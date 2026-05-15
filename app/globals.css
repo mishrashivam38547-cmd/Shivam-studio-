@@ -14,3 +14,42 @@ body {
   margin: 0;
   font-family: sans-serif;
 }
+/* Sab kuch center mein laane ke liye */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    padding-top: 60px; /* Taaki button ke liye jagah rahe */
+}
+
+/* Studio Manager Button ko top-left mein set karne ke liye */
+button {
+    /* Agar ye wahi button hai jo 'Open Studio Manager' likha hai */
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 8px 15px;
+    background-color: #ffffff;
+    color: #000;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Gallery images ko sahi se beech mein dikhane ke liye */
+.photo-gallery, .gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+}
+
+img {
+    max-width: 90%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+}
