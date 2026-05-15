@@ -15,68 +15,74 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  padding-top: 140px; /* Isse content naam/button se niche rahega */
+  padding-top: 140px; 
 }
 
-/* Header Title top-left mein */
-h1 {
+/* Header Title (Top-Left) */
+.site-title {
   position: absolute !important;
   top: 20px !important;
   left: 20px !important;
   font-size: 24px !important;
-  margin: 0 !important;
-  color: white !important;
-}
-
-/* Studio Button Title ke niche */
-button {
-  position: absolute !important;
-  top: 65px !important;
-  left: 20px !important;
-  padding: 8px 15px;
-  background-color: #ffffff;
-  color: #000;
-  border-radius: 6px;
   font-weight: bold;
-  cursor: pointer;
-  border: none;
+  color: white;
 }
 
-/* Cards layout */
-.apk-section, .download-area, .photo-gallery {
+/* Professional Card Setup */
+.apk-card {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid #333;
-  border-radius: 15px;
+  border-radius: 20px;
   padding: 20px;
-  margin: 15px auto;
+  margin-bottom: 30px;
   width: 90%;
-  max-width: 400px;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* Professional Buttons */
-a[href*="http"] {
-  display: inline-block !important;
-  background: linear-gradient(135deg, #0070f3, #00a1ff) !important;
-  color: white !important;
-  padding: 12px 30px !important;
-  border-radius: 50px !important;
-  text-decoration: none !important;
-  font-weight: bold !important;
-  margin-top: 15px !important;
-  font-size: 0 !important; 
-  box-shadow: 0 4px 15px rgba(0, 112, 243, 0.4);
+/* 1. Logo Format */
+.apk-logo {
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 18px;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 2px solid #444;
 }
 
-a[href*="http"]::before {
-  content: "DOWNLOAD NOW 📥";
-  font-size: 14px !important;
+/* 2. Details Format */
+.apk-name {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #fff;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-  margin: 10px auto;
+.apk-desc {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+/* 3. Button Format */
+.download-btn {
   display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #0070f3, #00a1ff);
+  color: white !important;
+  padding: 12px 0;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.download-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(0, 112, 243, 0.4);
 }
