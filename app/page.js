@@ -1,94 +1,160 @@
 "use client";
 import { useState, useEffect } from "react";
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import { getFirestore, collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
-// Firebase Configuration
+// 1. Aapki Firebase Config (Fixed & Direct)
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
+  apiKey: "AIzaSyCulND3XoR7XhJIdZe6SRI8_-D3Ikj7w0w",
+  authDomain: "studio-shivam.firebaseapp.com",
+  projectId: "studio-shivam",
+  storageBucket: "studio-shivam.firebasestorage.app",
+  messagingSenderId: "9621435697",
+  appId: "1:9621435697:web:e690304ef64667f0b7ac10"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getFirestore(app);
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setPosts(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      setLoading(false);
+    }, (error) => {
+      console.error("Firebase Error:", error);
+      setLoading(false);
     });
     return () => unsubscribe();
   }, []);
 
   return (
-    <div style={{ backgroundColor: '#050a18', minHeight: '100vh', width: '100%', color: 'white', fontFamily: 'sans-serif', margin: 0, padding: 0 }}>
+    <div style={{ 
+      backgroundColor: '#020617', 
+      minHeight: '100vh', 
+      color: '#f8fafc', 
+      fontFamily: '"Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+      margin: 0,
+      padding: '0 0 50px 0'
+    }}>
       
-      {/* 1. Header Section */}
-      <header style={{ padding: '20px 30px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <h1 style={{ fontSize: '32px', margin: 0, fontWeight: 'bold', letterSpacing: '-1px' }}>SHIVAM STUDIO</h1>
+      {/* --- PROFESSIONAL NAVBAR --- */}
+      <nav style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        padding: '20px 5%', 
+        background: 'rgba(15, 23, 42, 0.8)',
+        backdropFilter: 'blur(10px)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+        borderBottom: '1px solid #1e293b'
+      }}>
+        <h1 style={{ fontSize: '22px', fontWeight: '800', margin: 0, color: '#3b82f6' }}>SHIVAM STUDIO</h1>
         <a href="/admin" style={{ textDecoration: 'none' }}>
-          <button style={{ padding: '8px 18px', backgroundColor: 'white', color: 'black', border: 'none', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '14px' }}>
-            STUDIO MANAGER
-          </button>
+          <button style={{ 
+            backgroundColor: '#ffffff', 
+            color: '#000', 
+            padding: '8px 16px', 
+            borderRadius: '8px', 
+            fontWeight: 'bold', 
+            border: 'none', 
+            cursor: 'pointer',
+            fontSize: '13px'
+          }}>MANAGER</button>
         </a>
-      </header>
+      </nav>
 
-      {/* 2. Posts List */}
-      <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-        <div style={{ width: '100%', maxWidth: '420px' }}>
-          {posts.map((post) => (
-            <div key={post.id} style={{ 
-              backgroundColor: '#111827', 
-              border: '1px solid #1f2937', 
-              borderRadius: '24px', 
-              padding: '24px', 
-              marginBottom: '30px', 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              textAlign: 'center',
-              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.4)'
-            }}>
-              
-              {/* 1. Logo Format */}
+      {/* --- HERO SECTION --- */}
+      <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+        <h2 style={{ fontSize: '28px', marginBottom: '10px' }}>Premium Apps & Games</h2>
+        <p style={{ color: '#94a3b8', fontSize: '15px' }}>Download the latest professional APKs for free.</p>
+      </div>
+
+      {/* --- MAIN APP LIST --- */}
+      <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '25px', padding: '0 20px' }}>
+        {loading ? (
+          <p>Loading Apps...</p>
+        ) : posts.length === 0 ? (
+          <p style={{ color: '#64748b' }}>No Apps available yet.</p>
+        ) : posts.map((post) => (
+          <div key={post.id} style={{ 
+            backgroundColor: '#0f172a', 
+            border: '1px solid #1e293b', 
+            borderRadius: '28px', 
+            width: '100%', 
+            maxWidth: '400px', 
+            padding: '20px',
+            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}>
+            
+            {/* 1. LOGO SECTION */}
+            <div style={{ position: 'relative', marginBottom: '15px' }}>
               <img 
                 src={post.imageUrl || "https://via.placeholder.com/150"} 
                 alt="Logo"
-                style={{ width: '110px', height: '110px', borderRadius: '20px', marginBottom: '15px', objectFit: 'cover', border: '3px solid #374151' }} 
+                style={{ 
+                  width: '110px', 
+                  height: '110px', 
+                  borderRadius: '24px', 
+                  objectFit: 'cover',
+                  boxShadow: '0 8px 16px rgba(0,0,0,0.4)',
+                  border: '2px solid #334155'
+                }} 
               />
+            </div>
 
-              {/* 2. Details Format */}
-              <h2 style={{ fontSize: '24px', margin: '10px 0', fontWeight: 'bold' }}>{post.title}</h2>
-              <p style={{ fontSize: '15px', color: '#9ca3af', marginBottom: '20px', lineHeight: '1.5' }}>
+            {/* 2. DETAILS SECTION */}
+            <div style={{ textAlign: 'center', marginBottom: '20px', width: '100%' }}>
+              <h3 style={{ fontSize: '22px', margin: '0 0 8px 0', fontWeight: 'bold', color: '#fff' }}>
+                {post.title}
+              </h3>
+              <p style={{ 
+                fontSize: '14px', 
+                color: '#94a3b8', 
+                margin: 0, 
+                lineHeight: '1.5',
+                display: '-webkit-box',
+                WebkitLineClamp: '3',
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden'
+              }}>
                 {post.description}
               </p>
-
-              {/* 3. Button Format */}
-              <a href={post.downloadUrl || post.link} style={{ 
-                width: '100%', 
-                background: 'linear-gradient(to right, #2563eb, #3b82f6)', 
-                color: 'white', 
-                padding: '15px 0', 
-                borderRadius: '14px', 
-                textDecoration: 'none', 
-                fontWeight: 'bold',
-                fontSize: '16px',
-                textAlign: 'center',
-                boxShadow: '0 4px 10px rgba(37, 99, 235, 0.3)'
-              }}>
-                DOWNLOAD NOW 📥
-              </a>
             </div>
-          ))}
-        </div>
+
+            {/* 3. DOWNLOAD BUTTON SECTION */}
+            <a href={post.downloadUrl || post.link} style={{ 
+              width: '100%', 
+              background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)', 
+              color: 'white', 
+              padding: '14px 0', 
+              borderRadius: '16px', 
+              textDecoration: 'none', 
+              fontWeight: '800',
+              fontSize: '15px',
+              textAlign: 'center',
+              boxShadow: '0 4px 12px rgba(37, 99, 235, 0.4)',
+              transition: '0.3s'
+            }}>
+              DOWNLOAD APK 📥
+            </a>
+          </div>
+        ))}
       </main>
+
+      {/* --- FOOTER --- */}
+      <footer style={{ textAlign: 'center', marginTop: '60px', padding: '20px', borderTop: '1px solid #1e293b' }}>
+        <p style={{ fontSize: '12px', color: '#64748b' }}>© 2026 SHIVAM STUDIO. All Rights Reserved.</p>
+      </footer>
     </div>
   );
 }
