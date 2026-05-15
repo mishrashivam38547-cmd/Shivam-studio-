@@ -4,12 +4,13 @@ import { initializeApp, getApps } from "firebase/app";
 import { getFirestore, collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCulND3XoR7XhJIdZe6SRI8_-D3Ikj7w0w",
-  authDomain: "studio-shivam.firebaseapp.com",
-  projectId: "studio-shivam",
-  storageBucket: "studio-shivam.firebasestorage.app",
-  messagingSenderId: "9621435697",
-  appId: "1:9621435697:web:e690304ef64667f0b7ac10"
+  apiKey: "AIzaSyBfS3MOG86wZuukQj-3TjX60b-F806kvQ0",
+  authDomain: "shivam-anime.firebaseapp.com",
+  projectId: "shivam-anime",
+  storageBucket: "shivam-anime.firebasestorage.app",
+  messagingSenderId: "858703658309",
+  appId: "1:858703658309:web:1185863a9a77129dc5122d",
+  measurementId: "G-MHY46LNG07"
 };
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
