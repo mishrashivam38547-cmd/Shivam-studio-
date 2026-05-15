@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
-// 1. Firebase Configuration (Aapki keys automatic .env se lega)
+// 1. आपकी Firebase Configuration
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -40,18 +40,12 @@ export default function Home() {
       fontFamily: 'sans-serif' 
     }}>
       
-      {/* HEADER: Title aur Studio Manager Button */}
-      <div style={{ 
-        position: 'absolute', 
-        top: '20px', 
-        left: '20px', 
-        display: 'flex', 
-        flexDirection: 'column', 
-        gap: '10px' 
-      }}>
-        <h1 style={{ fontSize: '26px', margin: '0', fontWeight: 'bold' }}>SHIVAM STUDIO</h1>
+      {/* ऊपर का हिस्सा: नाम और मैनेजर बटन */}
+      <div style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 10 }}>
+        <h1 style={{ fontSize: '26px', margin: '0', fontWeight: 'bold', color: 'white' }}>SHIVAM STUDIO</h1>
         <a href="/admin" style={{ textDecoration: 'none' }}>
           <button style={{ 
+            marginTop: '10px',
             padding: '10px 20px', 
             backgroundColor: 'white', 
             color: 'black', 
@@ -66,7 +60,7 @@ export default function Home() {
         </a>
       </div>
 
-      {/* APK LIST: Cards Section */}
+      {/* APK लिस्ट: कार्ड्स */}
       <div style={{ width: '100%', maxWidth: '400px' }}>
         {posts.map((post) => (
           <div key={post.id} style={{ 
@@ -82,9 +76,9 @@ export default function Home() {
             boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
           }}>
             
-            {/* 1. PHOTO/LOGO */}
+            {/* 1. फोटो (Logo) */}
             <img 
-              src={post.imageUrl || "https://via.placeholder.com/150"} 
+              src={post.imageUrl || post.logo || "https://via.placeholder.com/150"} 
               alt="Logo"
               style={{ 
                 width: '120px', 
@@ -96,13 +90,13 @@ export default function Home() {
               }} 
             />
 
-            {/* 2. NAME & DESCRIPTION */}
+            {/* 2. नाम और जानकारी */}
             <h2 style={{ fontSize: '22px', margin: '5px 0', color: '#fff' }}>{post.title}</h2>
             <p style={{ fontSize: '14px', color: '#aaa', marginBottom: '20px', lineHeight: '1.4' }}>
               {post.description}
             </p>
 
-            {/* 3. DOWNLOAD BUTTON */}
+            {/* 3. डाउनलोड बटन */}
             <a href={post.downloadUrl || post.link} style={{ 
               width: '100%', 
               background: 'linear-gradient(135deg, #0070f3, #00a1ff)', 
@@ -121,4 +115,4 @@ export default function Home() {
       </div>
     </main>
   );
-                   }
+                }
