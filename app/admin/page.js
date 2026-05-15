@@ -22,7 +22,7 @@ export default function Admin() {
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   // यहाँ अपना मनपसंद पासवर्ड लिखें
-  const ADMIN_PASSWORD = "Shivam8591@"; 
+  const ADMIN_PASSWORD = "SHIVAM_STUDIO_77"; 
 
   const checkPassword = (e) => {
     e.preventDefault();
@@ -72,5 +72,4 @@ export default function Admin() {
       <button onClick={() => setIsAuthorized(false)} style={{ marginTop: '20px', background: 'transparent', color: 'red', border: 'none', cursor: 'pointer' }}>Logout</button>
     </div>
   );
-    }
-    
+}
