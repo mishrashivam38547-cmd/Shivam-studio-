@@ -21,41 +21,35 @@ export default function Admin() {
   const [inputPass, setInputPass] = useState("");
   const [isLogged, setIsLogged] = useState(false);
 
-  // आपका नया पासवर्ड
   const MY_PASSWORD = "Shivam8591@";
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (inputPass === MY_PASSWORD) { 
-      setIsLogged(true); 
-    } else { 
-      alert("Wrong Password! Please enter correct password."); 
-    }
+    if (inputPass === MY_PASSWORD) { setIsLogged(true); } 
+    else { alert("Incorrect Key!"); }
   };
 
   const handleUpload = async (e) => {
     e.preventDefault();
     try {
       await addDoc(collection(db, "posts"), { ...formData, createdAt: serverTimestamp() });
-      alert("App Uploaded Successfully!");
+      alert("Uploaded!");
       setFormData({ title: '', imageUrl: '', downloadUrl: '', version: '', size: '' });
     } catch (err) { alert("Error: " + err.message); }
   };
 
-  const inputStyle = { padding: '12px', borderRadius: '8px', border: '1px solid #232438', backgroundColor: '#161726', color: 'white', marginBottom: '10px', width: '100%' };
-
   if (!isLogged) {
     return (
       <div style={{ background: '#0a0b14', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontFamily: 'sans-serif' }}>
-        <form onSubmit={handleLogin} style={{ background: '#161726', padding: '30px', borderRadius: '20px', border: '1px solid #232438', textAlign: 'center', width: '300px' }}>
-          <h3 style={{ marginBottom: '20px' }}>Admin Panel</h3>
+        <form onSubmit={handleLogin} style={{ background: '#161726', padding: '30px', borderRadius: '20px', border: '1px solid #232438', textAlign: 'center' }}>
+          <h2 style={{ marginBottom: '20px', fontSize: '1.2rem' }}>Shivam Personal Dashboard</h2>
           <input 
             type="password" 
-            placeholder="Enter Password" 
-            style={inputStyle} 
+            placeholder="Enter Security Key" 
+            style={{ padding: '12px', width: '100%', marginBottom: '15px', borderRadius: '8px', border: '1px solid #3b82f6', background: '#0a0b14', color: 'white' }} 
             onChange={(e) => setInputPass(e.target.value)} 
           />
-          <button type="submit" style={{ width: '100%', padding: '12px', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>LOGIN</button>
+          <button type="submit" style={{ width: '100%', padding: '12px', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold' }}>ACCESS</button>
         </form>
       </div>
     );
@@ -63,16 +57,16 @@ export default function Admin() {
 
   return (
     <div style={{ backgroundColor: '#0a0b14', minHeight: '100vh', color: 'white', padding: '20px', textAlign: 'center', fontFamily: 'sans-serif' }}>
-      <h2>Studio Manager</h2>
+      <h1>Studio Manager</h1>
       <form onSubmit={handleUpload} style={{ maxWidth: '350px', margin: '0 auto' }}>
-        <input placeholder="App Name" style={inputStyle} value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} required />
-        <input placeholder="Image Link" style={inputStyle} value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
-        <input placeholder="Download Link" style={inputStyle} value={formData.downloadUrl} onChange={e => setFormData({...formData, downloadUrl: e.target.value})} required />
-        <input placeholder="Version" style={inputStyle} value={formData.version} onChange={e => setFormData({...formData, version: e.target.value})} />
-        <input placeholder="Size" style={inputStyle} value={formData.size} onChange={e => setFormData({...formData, size: e.target.value})} />
-        <button type="submit" style={{ padding: '15px', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '10px', width: '100%', fontWeight: 'bold', cursor: 'pointer' }}>UPLOAD APP</button>
+        <input placeholder="App Name" style={{ width: '100%', padding: '12px', marginBottom: '10px', borderRadius: '8px', background: '#161726', color: 'white', border: '1px solid #232438' }} value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} required />
+        <input placeholder="Image Link" style={{ width: '100%', padding: '12px', marginBottom: '10px', borderRadius: '8px', background: '#161726', color: 'white', border: '1px solid #232438' }} value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
+        <input placeholder="Download Link" style={{ width: '100%', padding: '12px', marginBottom: '10px', borderRadius: '8px', background: '#161726', color: 'white', border: '1px solid #232438' }} value={formData.downloadUrl} onChange={e => setFormData({...formData, downloadUrl: e.target.value})} required />
+        <input placeholder="Version" style={{ width: '100%', padding: '12px', marginBottom: '10px', borderRadius: '8px', background: '#161726', color: 'white', border: '1px solid #232438' }} value={formData.version} onChange={e => setFormData({...formData, version: e.target.value})} />
+        <input placeholder="Size" style={{ width: '100%', padding: '12px', marginBottom: '10px', borderRadius: '8px', background: '#161726', color: 'white', border: '1px solid #232438' }} value={formData.size} onChange={e => setFormData({...formData, size: e.target.value})} />
+        <button type="submit" style={{ padding: '15px', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '10px', width: '100%', fontWeight: 'bold' }}>UPLOAD</button>
       </form>
-      <button onClick={() => setIsLogged(false)} style={{ marginTop: '20px', color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}>Logout</button>
     </div>
   );
-}
+    }
+    
